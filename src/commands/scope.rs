@@ -3,7 +3,7 @@ use log::info;
 use crate::{args::ScopesArgs, confiq::Confiq};
 
 pub fn scope(args: ScopesArgs) {
-    let confiq = Confiq::load(args.path);
+    let confiq = Confiq::load(&args.path);
 
     test(&confiq);
 }

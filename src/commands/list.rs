@@ -1,11 +1,12 @@
-use crate::{args::{ListArgs, ListCommand}, confiq::{self, Confiq}};
+use crate::{args::{ListArgs, ListCommand}, confiq::Confiq};
 
 pub fn list(args: ListArgs) {
-    let confiq = Confiq::load(args.path);
+    let confiq = Confiq::load(&args.path);
 
     match args.command {
         ListCommand::Aliases => aliases(&confiq),
         ListCommand::Scopes => scopes(&confiq),
+        ListCommand::EnvironmentVariables => environment_variables(&confiq),
     }
 }
 
@@ -21,4 +22,11 @@ fn aliases(confiq: &Confiq) {
         println!("Alias: {:?} -> {:?}", alias.from, alias.to);
         println!("\tScope: {:?}", alias.scope.0);
     } 
+}
+
+fn environment_variables(confiq: &Confiq) {
+    for env in &confiq.environment_variables {
+        println!("Environment Variable: {:?} = {:?}", env.key, env.value);
+        println!("\tScope: {:?}", env.scope.0);
+    }
 }

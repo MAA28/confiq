@@ -6,6 +6,15 @@ use serde::Deserialize;
 pub struct Confiq {
     pub aliases: Vec<Alias>,
     pub scopes: HashMap<String, ScopeDescriptor>,
+    pub environment_variables: Vec<EnvironmentVariable>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct EnvironmentVariable {
+    pub key: String,
+    pub value: String,
+    #[serde(default)]
+    pub scope: Scope,
 }
 
 #[derive(Deserialize, Debug)]

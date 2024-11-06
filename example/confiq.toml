@@ -11,6 +11,10 @@ aliases = [
     { from = "ga", to = "git add -a", scope = "personal-.*" },
 ]
 
+environment_variables = [
+    { key = "USER", value = "malte" },
+]
+
 [scopes]
 
 [scopes.work]

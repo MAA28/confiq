@@ -27,6 +27,7 @@ fn main() {
             ColorChoice::Auto,
         ));
     }
+
     if args.global_opts.log_to_file {
         loggers.push(WriteLogger::new(
             LevelFilter::Info,
