@@ -1,0 +1,26 @@
+aliases = [
+    # ls aliases
+    { from = "ll", to = "ls -l", scope = "work" },
+    { from = "lla", to = "ls -la", scope = "work" },
+    { from = "la", to = "ls -a", scope = "work" },
+
+    # git aliases
+    { from = "gl", to = "git log" },
+    { from = "gst", to = "git status", scope = "personal-.*" },
+    { from = "gcam", to = "git commit -a", scope = "personal-.*" },
+    { from = "ga", to = "git add -a", scope = "personal-.*" },
+]
+
+[scopes]
+
+[scopes.work]
+
+whoami = "malte"
+
+[scopes.personal-laptop]
+
+whoami = "maa28"
+
+[scopes.personal-pc]
+
+whoami = "malte28"

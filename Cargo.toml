@@ -1,0 +1,16 @@
+[package]
+name = "confiq"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.20", features = ["derive"] }
+dirs = "5.0.1"
+log = "0.4.22"
+serde = { version = "1.0.214", features = ["serde_derive"] }
+simplelog = "0.12.2"
+toml = "0.8.19"
+derive_more = { version = "1", features = ["display", "from"] }
+regex = "1.11.1"
+execute = "0.2.13"
+rust-shell = "0.2.0"
