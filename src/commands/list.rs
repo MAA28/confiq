@@ -7,6 +7,7 @@ pub fn list(args: ListArgs) {
         ListCommand::Aliases => aliases(&confiq),
         ListCommand::Scopes => scopes(&confiq),
         ListCommand::EnvironmentVariables => environment_variables(&confiq),
+        ListCommand::Scripts => scripts(&confiq),
     }
 }
 
@@ -28,5 +29,13 @@ fn environment_variables(confiq: &Confiq) {
     for env in &confiq.environment_variables {
         println!("Environment Variable: {:?} = {:?}", env.key, env.value);
         println!("\tScope: {:?}", env.scope.0);
+    }
+}
+
+
+fn scripts(confiq: &Confiq) {
+    for scripts in &confiq.scripts {
+        println!("Script: {:?}", scripts.path);
+        println!("\tScope: {:?}", scripts.scope.0);
     }
 }

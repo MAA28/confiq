@@ -7,6 +7,14 @@ pub struct Confiq {
     pub aliases: Vec<Alias>,
     pub scopes: HashMap<String, ScopeDescriptor>,
     pub environment_variables: Vec<EnvironmentVariable>,
+    pub scripts: Vec<Scripts>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Scripts {
+    pub path: String,
+    #[serde(default)]
+    pub scope: Scope,
 }
 
 #[derive(Deserialize, Debug)]

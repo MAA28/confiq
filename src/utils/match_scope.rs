@@ -41,7 +41,10 @@ impl Scope {
             .scopes
             .iter()
             .filter(|(name, _)| regex.is_match(name))
-            .filter(|(_, descriptor)| descriptor.matching());
+            .filter(|(name, descriptor)| {
+                info!("Checking scope: {}", name);
+                descriptor.matching()
+            });
 
         matched.clone().count() > 0
     }

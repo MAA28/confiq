@@ -42,7 +42,7 @@ pub struct BuildArgs{
     pub path: PathBuf,
 
     /// Path to build directory
-    #[clap(long, default_value = "~/.config/config/build")]
+    #[clap(long, default_value = "~/.config/confiq/build")]
     pub build_path: PathBuf,
 
     /// Should aliases be build?
@@ -51,7 +51,12 @@ pub struct BuildArgs{
 
     /// Should environment variables be build?
     #[clap(short, long)]
-    pub environment_variables: bool 
+    pub environment_variables: bool,
+
+
+    /// Should scripts be build?
+    #[clap(short, long)]
+    pub scripts: bool 
 }
 
 #[derive(Parser, Debug)]
@@ -81,5 +86,7 @@ pub enum ListCommand {
     EnvironmentVariables,
     /// Lists all scopes
     Scopes,
+    /// LIsts all scripts
+    Scripts
 }
 

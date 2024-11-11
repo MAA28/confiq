@@ -15,6 +15,11 @@ environment_variables = [
     { key = "USER", value = "malte" },
 ]
 
+scripts = [
+    { path = "scripts/in-work-scope.sh", scope = "work" },
+    { path = "scripts/out-off-work-scope.sh", scope = "personal-.*" },
+]
+
 [scopes]
 
 [scopes.work]

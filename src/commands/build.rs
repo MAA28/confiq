@@ -1,4 +1,4 @@
-use std::fs::{create_dir, exists, File};
+use std::fs::{create_dir_all, exists, File};
 use std::io::Write;
 
 use log::{info, warn};
@@ -9,7 +9,8 @@ pub fn build(args: BuildArgs) {
     let confiq = Confiq::load(&args.path);
 
     if !exists(&args.build_path.as_path()).expect("Failed to check if build directory exists") {
-        create_dir(&args.build_path.as_path()).expect("Failed to create build directory");
+        info!("Creating build directory at {:?}", args.build_path.display());
+        create_dir_all(&args.build_path.as_path()).expect("Failed to create build directory");
     }
 
     let filename = args.build_path.join("confiqrc.sh");
@@ -21,6 +22,10 @@ pub fn build(args: BuildArgs) {
     
     if args.environment_variables {
         environment_variables(&mut file, &args, &confiq);
+    }
+
+    if args.scripts {
+        scripts(&mut file, &args, &confiq);
     }
 }
 
@@ -49,7 +54,7 @@ pub fn environment_variables(confiqrc: &mut File, build_args: &BuildArgs, confiq
 
     writeln!(confiqrc, "source {}", filename.display()).expect("Failed to write to file");
 
-    info!("Writing aliases to {:?}", filename.display());
+    info!("Writing environment variables to {:?}", filename.display());
 
     for environment_variables in &confiq.environment_variables {
         let command = format!("export {}='{}'", environment_variables.key, environment_variables.value);
@@ -60,4 +65,25 @@ pub fn environment_variables(confiqrc: &mut File, build_args: &BuildArgs, confiq
             warn!("Skipping command: {:?}", command);
         }
     }
+}
+
+
+pub fn scripts(confiqrc: &mut File, build_args: &BuildArgs, confiq: &Confiq) {
+    let filename = build_args.build_path.join("scripts.sh");
+    let file = File::create(&filename).expect("Failed to create file");
+
+    writeln!(confiqrc, "source {}", filename.display()).expect("Failed to write to file");
+
+    info!("Writing scripts to {:?}", filename.display());
+
+    for script in &confiq.scripts {
+        let command = format!("source {}", script.path);
+        if script.scope.matching(confiq) {
+            info!("Adding command: {:?}", &command);
+            writeln!(&file, "{}", command).expect("Failed to write to file");
+        } else {
+            warn!("Skipping command: {:?}", command);
+        }
+    }
+
 }

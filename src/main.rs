@@ -15,7 +15,6 @@ pub use error_handling::{Error, Result};
 
 fn main() {
     let args = Args::parse();
-    dbg!(&args);
 
     let mut loggers: Vec<Box<dyn SharedLogger>> = vec![];
 
